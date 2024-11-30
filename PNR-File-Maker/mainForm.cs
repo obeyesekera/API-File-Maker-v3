@@ -33,6 +33,7 @@ namespace PNR_File_Maker
             updatePaxCount();
             setTooltip();
             loadCountries();
+            loadSSR();
             
         }
         
@@ -61,7 +62,14 @@ namespace PNR_File_Maker
         {
             if (validateData())
             {
-                DialogResult dialogResult = MessageBox.Show("Do you want to save API file ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                string fileTypes = "API file";
+
+                if (cbPNR.Checked)
+                {
+                    fileTypes = "API and PNR Files";
+                }
+
+                DialogResult dialogResult = MessageBox.Show("Do you want to save "+ fileTypes + " ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     saveAPIFile();
@@ -81,6 +89,7 @@ namespace PNR_File_Maker
         private void btnNew_Click(object sender, EventArgs e)
         {
             initializeDataset();
+            initializeDataset2();
         }
         
 
@@ -169,6 +178,7 @@ namespace PNR_File_Maker
         private void btnClearPax_Click(object sender, EventArgs e)
         {
             dataGridView.DataSource = null;
+            dtPNR = null;
 
         }
 
@@ -215,6 +225,7 @@ namespace PNR_File_Maker
             DialogResult dialogResult = MessageBox.Show("Do you want to generate " + fileCount + " API files ?", "Auto Gen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
+                cbPNR.Checked = false;
                 disbleAll();
                 
                 var results = autoGenerate(fileCount);

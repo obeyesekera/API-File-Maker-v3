@@ -39,7 +39,10 @@ namespace PNR_File_Maker
                 {
                     fileSavePath = folderDialog.SelectedPath;
                     writeAPI();
-                    writePNR();
+                    if (cbPNR.Checked) {
+                        writePNR(); 
+                    }
+
                     MessageBox.Show("Successfully Saved", "SAVE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 

@@ -78,6 +78,13 @@ namespace PNR_File_Maker
             return phoneNo;
         }
 
+        public static string generateRemarks()
+        {
+            string nRemark = generateName(3) + generateName(5) + generateName(4) + generateName(3);
+
+            return nRemark;
+        }
+
         private DataRow rndCountry()
         {
 
@@ -87,6 +94,22 @@ namespace PNR_File_Maker
             DataRow countryRow = dtCountry.Rows[rInt];
 
             return countryRow;
+        }
+
+
+        private DataRow rndSSR()
+        {
+
+            Random r = new Random();
+            int rInt = r.Next(1, dtSSR.Rows.Count);
+
+            DataRow ssrRow = dtSSR.Rows[rInt];
+
+            if (ssrRow[0].ToString().Substring(0,1)=="*") {
+                ssrRow[0] = ssrRow[0].ToString().Substring(1, 4);
+            }
+
+            return ssrRow;
         }
 
 

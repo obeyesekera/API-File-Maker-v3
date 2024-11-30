@@ -41,6 +41,7 @@ namespace PNR_File_Maker
             dataGridView.MultiSelect = false;
             txtNoofPassengers.ReadOnly = true;
             txtNoofSeatofFlight.ReadOnly = true;
+            cbPNR.Checked = false;
 
         }
 
@@ -83,6 +84,7 @@ namespace PNR_File_Maker
             btnNew.Enabled = false;
             btnLoad.Enabled = false;
             btnAutoGenerate.Enabled = false;
+            cbPNR.Enabled = false;
         }
 
         private void enableAll()
@@ -113,6 +115,7 @@ namespace PNR_File_Maker
             btnNew.Enabled = true;
             btnLoad.Enabled = true;
             btnAutoGenerate.Enabled = true;
+            cbPNR.Enabled = true;
         }
 
         private void setTooltip()

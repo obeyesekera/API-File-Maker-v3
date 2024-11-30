@@ -13,8 +13,10 @@ namespace PNR_File_Maker
 
         private void generatePaxData()
         {
+            setFlight();
             defineSeats();
             initializeDataset();
+            initializeDataset2();
             initialiseGrid();
 
             int totPax = Int32.Parse(txtRequiredPax.Text);
@@ -29,18 +31,44 @@ namespace PNR_File_Maker
             {
 
                 DataRow newrow = dtExcel.NewRow();
+                DataRow newrow2 = dtPNR.NewRow();
                 DataRow country = rndCountry();
                 string alpha2 = country[1].ToString();
                 string alpha3 = country[2].ToString();
                 string countryCode = country[4].ToString();
                 string countryName = country[0].ToString();
 
+                DataRow ssrRow = rndSSR();
+                string ssrCode = ssrRow[0].ToString();
+                string ssrDetails = ssrRow[1].ToString();
+
                 string passengerType = "PAX";
+                string tdNumber = rndTravelDoc(alpha2);  //"SG1025561";
+                string tdType = "P";
                 string seatNumber = allocateSeat();  //"22A";
+                string oldSeat = getOldSeat(seatNumber);
 
                 string portOfEmbark = origin;
                 string portOfDisembark = destination;
                 string firstTransitPorts = "";
+
+                string transferLocation = origin;
+                string nextFlightNumber = nFlight;
+                string nextFlightDepartureTime = nDepartureTime;
+
+                string newDepartureDateTime = nDepartureTime;
+                string checkinTime = newDepartureDateTime;
+                string boardingPass = "Yes";
+                string boardingTime = checkinTime;
+                string boardingGate = randomNumber(10, 99).ToString();
+                string flightStatus = "Delayed";
+
+                string changeType = "FlightChange";
+                string newFlightNumber = nFlight;
+
+                string noShowStatus = "Yes";
+
+                string newArrivalDateTime = nArrivalTime;
 
                 string hotelAlpha3 = localAlpha3;
                 string hotelCountry = localCountry;
@@ -59,68 +87,39 @@ namespace PNR_File_Maker
                     }
                 }
 
-                newrow["PassengerType"] = passengerType;
-                newrow["DocType"] = "P";
-
-                newrow["DocumentNo"] = rndTravelDoc(alpha2);  //"SG1025561";
-                newrow["Nationality"] = alpha3; //"SGP";
-
                 string givenName = generateName(5);
-                newrow["GivenName"] = givenName;
-
                 string surName = generateName(7);
-                newrow["Surname"] = surName;
-
                 string fullName = givenName + " " + surName;
-                newrow["FullName"] = fullName;
-
-                newrow["DateOfBirth"] = rndDOB();  //"18/06/1996";
-
+                string dob = rndDOB();  //"18/06/1996";
                 string gender = rndGender();
-                newrow["Gender"] = gender; //"M";
-
                 string expiryDate = rndExpiryDate();
-                newrow["ExpireDate"] = expiryDate;  //"15/04/2029";
-                newrow["CountryOfResidence"] = alpha3;  //"SGP";
-                newrow["DocIssueCountry"] = alpha3;  //"SGP";
-                newrow["BookingReferenceId"] = rndBookingRef(txtFlightPrefix.Text); //"UL12345";
-                newrow["BookingReferenceType"] = "AVF";
-
+                string bookingRef = rndBookingRef(txtFlightPrefix.Text); //"UL12345";
+                string ticketNo = "TK" + bookingRef;
+                string bookingRefType = "AVF";
                 string bookingDate = rndBookingDate();
-                newrow["BookingDate"] = bookingDate;  //"05/01/2023";
-                newrow["SeatNo"] = seatNumber;  //allocateSeat();  //"22A";
-                newrow["PortOfEmbark"] = portOfEmbark; // origin;  //"CMB";
-                newrow["PortOfDisembark"] = portOfDisembark; // destination;  //"KUL";
-                newrow["FirstTransitPorts"] = firstTransitPorts; // alpha3;  //"SGP";
-                newrow["VisaNo"] = rndTravelDoc("VP");  //"VP2023048";
-                newrow["VisaExpiryDate"] = expiryDate;  //"24/06/2023";
-                newrow["NoofCheckingluggage"] = "1";
-                newrow["ReservationPaymentID"] = randomNumber(10000, 99999);  //"97059";
-                newrow["PaymentCardHolder"] = givenName + " " + surName; //"HANNA AHMAD";
-                newrow["PaymentAmount"] = "343";
-                newrow["PaymentExpirationDate"] = expiryDate;  //"05/01/2023";
-                newrow["PaymentCardNumber"] = rndCardNo();  //"23118281";
-                newrow["PaymentAuthorizationcode"] = randomNumber(100, 999);  //"877";
-                newrow["PaymentTerminalID"] = randomNumber(10000, 99999);  //"70271";
-                newrow["PaymentCurrencyPaid"] = "USD";
-                newrow["PaymentMerchantID"] = randomNumber(10000, 99999);  //"41429";
-                newrow["PaymentCountry"] = alpha3;  //"LKA";
-                newrow["PaymentMethod"] = rndPayMetod();  //"CARD";
-                newrow["PaymentDatePaid"] = bookingDate;  //"05/01/2023";
-                newrow["ReservationContactFirstName"] = givenName;  //"HANNA";
-                newrow["ReservationContactLastName"] = surName;  //"AHMAD";
-                newrow["ReservationContactGender"] = gender; // "M";
-
-                newrow["PassengerEmail"] = paxEmail(givenName, surName); // "hana.ahmad@gmail.com";
-                newrow["PassengerContact"] = paxPhoneNo(countryCode); ; // "+94888888888";
-                newrow["PassengerAddressLine1"] = paxAddress1(alpha3); // "32/424, Main Street";
-                newrow["PassengerAddressLine2"] = countryName; // "Colombo 03";
-
+                string ticketDate = bookingDate;
+                string ticketCareer = nFlight.Substring(0, 2);
+                string ticketFareBasis = "FLEX";
+                string baggageTagNumber = "B" + bookingRef;
+                string baggageStatus = "Checked-In";
+                string baggageDropOffLocation = destination;
+                string visaNumber = rndTravelDoc("VP");  //"VP2023048";
+                string checkinLuggage = "1";
+                string reservPayID = randomNumber(10000, 99999).ToString();  //"97059";
+                string payAmount = "343";
+                string payCardNumber = rndCardNo();  //"23118281";;
+                string payAuthCode = randomNumber(100, 999).ToString();  //"877";
+                string payTerminalID = randomNumber(10000, 99999).ToString();  //"70271";
+                string payCurrency = "USD";
+                string payMerchantID = randomNumber(10000, 99999).ToString();  //"41429";
+                string payMethod = rndPayMetod();  //"CARD";
+                string paxEmailAdd = paxEmail(givenName, surName); // "hana.ahmad@gmail.com";
+                string paxContact = paxPhoneNo(countryCode); ; // "+94888888888";
+                string paxAddLine1 = paxAddress1(alpha3); // "32/424, Main Street";
                 int agentCode = randomNumber(1, 9);
                 string agntID = agentID(alpha3, agentCode);
-                newrow["AgentID"] = agntID; // "AG0152";
-                newrow["AgentEmail"] = agentEmail(agntID); // "agent.a@gmail.com";
-                newrow["AgentContact"] = agentPhoneNo(countryCode, agentCode); // "+94888888888";
+                string agentEmailAdd = agentEmail(agntID); // "agent.a@gmail.com";
+                string agentContact = agentPhoneNo(countryCode, agentCode); // "+94888888888";
 
                 if (seatNumber.Substring((seatNumber.Length - 1), 1) == "E") //Transit PAX on E seats
                 {
@@ -129,11 +128,203 @@ namespace PNR_File_Maker
                 }
 
                 int hotelCode = randomNumber(1, 9);
-                newrow["PassengerHotelReservationName"] = hotelName(hotelAlpha3, hotelCode); // "Cinnamon Lake";
-                newrow["PassengerHotelReservationAddressLine1"] = hotelAddress1(hotelCode); // "Galle Road";
-                newrow["PassengerHotelReservationAddressLine2"] = hotelCountry; // "Colombo 02";
+                string hotelResName = hotelName(hotelAlpha3, hotelCode); // "Cinnamon Lake";
+                string hotelResAdd1 = hotelAddress1(hotelCode); // "Galle Road";
+
+                string frequentFlyerNumber = alpha2+"-"+tdNumber;
+                string ffMilesCredited = flyMiles();
+
+                string remarkText = generateRemarks();
+
+                string pnrClosureDate = nCloseDate;
+
+                newrow["PassengerType"] = passengerType;
+                newrow2["PassengerType"] = passengerType;
+
+                newrow["DocType"] = tdType;
+                newrow2["DocType"] = tdType;
+
+                newrow["DocumentNo"] = tdNumber;
+                newrow2["DocumentNo"] = tdNumber;
+
+                newrow["Nationality"] = alpha3;
+                newrow2["Nationality"] = alpha3;
+                                
+                newrow["GivenName"] = givenName;
+                newrow2["GivenName"] = givenName;
+
+                newrow["Surname"] = surName;
+                newrow2["Surname"] = surName;
+
+                newrow["FullName"] = fullName;
+                newrow2["FullName"] = fullName;
+
+                newrow["DateOfBirth"] = dob;
+                newrow2["DateOfBirth"] = dob;
+
+                newrow["Gender"] = gender;
+                newrow2["Gender"] = gender;
+                                
+                newrow["ExpireDate"] = expiryDate;
+                newrow2["ExpireDate"] = expiryDate;
+
+                newrow["CountryOfResidence"] = alpha3;
+                newrow2["CountryOfResidence"] = alpha3;
+
+                newrow["DocIssueCountry"] = alpha3;
+                newrow2["DocIssueCountry"] = alpha3;
+
+                newrow["BookingReferenceId"] = bookingRef;
+                newrow2["BookingReferenceId"] = bookingRef;
+                newrow2["TicketNumber"] = ticketNo;
+
+                newrow["BookingReferenceType"] = bookingRefType;
+                newrow2["BookingReferenceType"] = bookingRefType;
+
+                newrow["BookingDate"] = bookingDate;
+                newrow2["BookingDate"] = bookingDate;
+                newrow2["TicketIssueDate"] = ticketDate;
+                newrow2["TicketingCarrier"] = ticketCareer;
+                newrow2["FareBasis"] = ticketFareBasis;
+
+                newrow["SeatNo"] = seatNumber;
+                newrow2["SeatNo"] = seatNumber;
+                newrow2["ClearedSeatNo"] = seatNumber;
+                newrow2["OldSeatNo"] = oldSeat;
+                newrow2["NewSeatNo"] = seatNumber;
+
+                newrow["PortOfEmbark"] = portOfEmbark;
+                newrow2["PortOfEmbark"] = portOfEmbark;
+                newrow2["CheckInTime"] = checkinTime;
+                newrow2["BoardingPassIssued"] = boardingPass;
+                newrow2["BoardingTime"] = boardingTime;
+                newrow2["Gate"] = boardingGate;
+                newrow2["FlightStatus"] = flightStatus;
+
+                newrow2["BaggageTagNumber"] = baggageTagNumber;
+                newrow2["BaggageStatus"] = baggageStatus;
+                newrow2["BaggageDropOffLocation"] = baggageDropOffLocation;
+
+                newrow2["TransferLocation"] = transferLocation;
+                newrow2["NextFlightNumber"] = nextFlightNumber;
+                newrow2["NextFlightDepartureTime"] = nextFlightDepartureTime;
+
+                newrow["PortOfDisembark"] = portOfDisembark;
+                newrow2["PortOfDisembark"] = portOfDisembark;
+
+                newrow["FirstTransitPorts"] = firstTransitPorts;
+
+                newrow2["NewDepartureDateTime"] = newDepartureDateTime;
+                newrow2["NewDepartureTime"] = newDepartureDateTime;
+                newrow2["ActualDepartureTime"] = newDepartureDateTime;
+
+                
+                
+
+                newrow2["NewArrivalDateTime"] = newArrivalDateTime;
+                newrow2["ActualArrivalTime"] = newArrivalDateTime;
+
+                newrow["VisaNo"] = visaNumber;
+                newrow2["VisaNo"] = visaNumber;
+
+                newrow["VisaExpiryDate"] = expiryDate;
+                newrow2["VisaExpiryDate"] = expiryDate;
+
+                newrow["NoofCheckingluggage"] = checkinLuggage;
+
+                newrow["ReservationPaymentID"] = reservPayID;
+
+                newrow["PaymentCardHolder"] = fullName;
+
+                newrow["PaymentAmount"] = payAmount;
+                newrow2["PaymentAmount"] = payAmount;
+                
+                newrow["PaymentExpirationDate"] = expiryDate; 
+                
+                newrow["PaymentCardNumber"] = payCardNumber;
+
+                newrow["PaymentAuthorizationcode"] = payAuthCode;
+
+                newrow["PaymentTerminalID"] = payTerminalID;
+
+                newrow["PaymentCurrencyPaid"] = payCurrency;
+                newrow2["Currency"] = payCurrency;
+                
+                newrow["PaymentMerchantID"] = payMerchantID;
+
+                newrow["PaymentCountry"] = alpha3;  
+
+                newrow["PaymentMethod"] = payMethod;
+                newrow2["PaymentMethod"] = payMethod;
+                
+                newrow["PaymentDatePaid"] = bookingDate;
+                newrow2["TransactionDate"] = bookingDate;
+                
+                newrow["ReservationContactFirstName"] = givenName;
+                newrow2["ReservationContactFirstName"] = givenName;
+
+                newrow["ReservationContactLastName"] = surName;
+                newrow2["ReservationContactLastName"] = surName;
+
+                newrow["ReservationContactGender"] = gender;
+                newrow2["ReservationContactGender"] = gender;
+
+
+                newrow["PassengerEmail"] = paxEmailAdd;
+                newrow2["PassengerEmail"] = paxEmailAdd;
+
+                newrow["PassengerContact"] = paxContact;
+                newrow2["PassengerContact"] = paxContact;
+
+                newrow["PassengerAddressLine1"] = paxAddLine1;
+                newrow2["PassengerAddressLine1"] = paxAddLine1;
+
+                newrow["PassengerAddressLine2"] = countryName;
+                newrow2["PassengerAddressLine2"] = countryName;
+
+
+
+                newrow["AgentID"] = agntID;
+                newrow2["AgentID"] = agntID;
+
+                newrow["AgentEmail"] = agentEmailAdd;
+                newrow2["AgentEmail"] = agentEmailAdd;
+
+                newrow["AgentContact"] = agentContact;
+                newrow2["AgentContact"] = agentContact;
+
+
+
+                newrow["PassengerHotelReservationName"] = hotelResName;
+                newrow2["PassengerHotelReservationName"] = hotelResName;
+
+                newrow["PassengerHotelReservationAddressLine1"] = hotelResAdd1;
+                newrow2["PassengerHotelReservationAddressLine1"] = hotelResAdd1;
+
+                newrow["PassengerHotelReservationAddressLine2"] = hotelCountry;
+                newrow2["PassengerHotelReservationAddressLine2"] = hotelCountry;
+
+                newrow2["ChangeType"] = changeType;
+                newrow2["NewFlightNumber"] = newFlightNumber;
+                newrow2["NewDepartureDateTime"] = newDepartureDateTime;
+
+                newrow2["FlightNumber"] = nFlight;
+                newrow2["NoShowStatus"] = noShowStatus;
+
+                newrow2["SSRCode"] = ssrCode;
+                newrow2["RequestDetails"] = ssrDetails;
+
+                newrow2["FrequentFlyerNumber"] = frequentFlyerNumber;
+                newrow2["MilesCredited"] = ffMilesCredited;
+
+                newrow2["RemarkText"] = remarkText;
+
+                newrow2["ClosureDate"] = pnrClosureDate;
 
                 dtExcel.Rows.Add(newrow);
+                dtPNR.Rows.Add(newrow2);
+
+                string asdfg = "";
             }
         }
 
@@ -231,6 +422,8 @@ namespace PNR_File_Maker
             {
                 int rowCount = dataGridView.Rows.Count;
                 dataGridView.Rows.RemoveAt(dataGridView.CurrentRow.Index);
+
+                dtPNR.Rows.RemoveAt(0);
 
             }
             catch (Exception ex)

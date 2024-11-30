@@ -1,10 +1,25 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Reflection;
 
 namespace PNR_File_Maker
 {
     partial class frmMain
     {
+        string nFlight;
+        string nArrivalTime;
+        string nDepartureTime;
+        string nCloseDate;
+
+
+        private string flyMiles()
+        {
+            string nMiles = randomNumber(1000, 9999).ToString();
+
+            return nMiles;
+        }
+
+
 
         List<string> unUsedSeates;
 
@@ -110,6 +125,21 @@ namespace PNR_File_Maker
             return seatNo;
         }
 
+        private string getOldSeat(string newSeat)
+        {
+            string oldSeat;
+
+            if (unUsedSeates.Count > 0)
+            {
+                oldSeat = unUsedSeates[0];
+            }
+            else
+            {
+                oldSeat = newSeat;
+            }
+
+            return oldSeat;
+        }
 
 
         //Rows, StartingRow, EndingRow, Seats
@@ -161,6 +191,14 @@ namespace PNR_File_Maker
                 + (economyRows * 10);
 
             txtNoofSeatofFlight.Text = totSeats.ToString();
+        }
+
+        private void setFlight()
+        {
+            nFlight = txtFlightPrefix.Text + txtFlightNumber.Text;
+            nArrivalTime = txtArrivalDate.Text + "T" + dtArrivalTime.Text.ToString();
+            nDepartureTime = txtDepartureDate.Text + "T" + dtDepartureTime.Text.ToString();
+            nCloseDate = txtArrivalDate.Text;
         }
 
 

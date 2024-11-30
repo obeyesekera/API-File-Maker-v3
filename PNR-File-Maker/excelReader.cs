@@ -18,6 +18,8 @@ namespace PNR_File_Maker
         private DataTable dtExcel;
         private DataTable dtCountry;
         private DataTable dtConfig;
+        private DataTable dtPNR;
+        private DataTable dtSSR;
 
         private DataTable ReadExcel(string fileName)
         {
@@ -105,6 +107,21 @@ namespace PNR_File_Maker
             }
         }
 
+        private void initializeDataset2()
+        {
+            try
+            {
+                var GetDirectory = AppContext.BaseDirectory;
+
+                dtPNR = ReadExcel(GetDirectory + "\\PNR_Template.xlsx"); //read excel file
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void loadCountries()
         {
             try
@@ -112,6 +129,20 @@ namespace PNR_File_Maker
                 var GetDirectory = AppContext.BaseDirectory;
 
                 dtCountry = ReadExcel(GetDirectory + "\\Countries.xlsx"); //read excel file
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void loadSSR()
+        {
+            try
+            {
+                var GetDirectory = AppContext.BaseDirectory;
+
+                dtSSR = ReadExcel(GetDirectory + "\\SSR.xlsx"); //read excel file
             }
             catch (Exception ex)
             {

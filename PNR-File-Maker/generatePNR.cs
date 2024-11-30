@@ -1,41 +1,119 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace PNR_File_Maker
 {
     partial class frmMain
     {
-        private void writePNR(string flight, string arrivalTime, string departureTime, int rowID )
-        {
-            DataRow row = dtExcel.Rows[rowID];
+        string pnrFilePath;
+        
 
-            string newFilename = fileSavePath + "\\" + flight + "_" + arrivalTime.Replace(":", "") + "_" + row["BookingReferenceId"].ToString();
-                     
-            pnrOpen(newFilename, flight, arrivalTime, departureTime, row);
-            pnrTicketing(newFilename, flight, row);
-            pnrPaxDataUpdate(newFilename, row);
-            pnrItineraryUpdate(newFilename, arrivalTime, departureTime, row);
+
+        private void writePNR(DataRow row)
+        {
+            
+           
+            //DataRow row = dtPNR.Rows[rowID];
+
+            pnrFilePath = fileSavePath + "\\" + nFlight + "_" + nArrivalTime.Replace(":", "") + "_" + row["BookingReferenceId"].ToString();
+
+            createFolder(pnrFilePath);
+
+            pnrFilePath = pnrFilePath + "\\" + row["BookingReferenceId"].ToString();
+
+
+            pnrOpen(row, "01_PNR_CREATION", C_PNR_CREATION, "PNR_CREATION");
+            pnrBase(row, "02_TICKETING", C_PNR_TICKERTING, "TKT");
+            pnrBase(row, "03_PAX_DATA_UPDATE", C_PNR_PAX_DATA_UPDATE, "PAX_DATA_UPDATE");
+            pnrBase(row, "04_ITINERARY_UPDATE", C_PNR_ITINERARY_UPDATE, "ITINERARY_UPDATE");
+            pnrBase(row, "05_PAYMENT", C_PNR_PAYMENT, "PAYMENT");
+            pnrBase(row, "06_CHECK_IN", C_PNR_CHECKIN, "CHECK_IN");
+            pnrBase(row, "07_BOARDING", C_PNR_BOARDING, "BOARDING");
+            pnrBase(row, "08_FLIGHT_STATUS_UPDATE", C_PNR_FLIGHT_STATUS_UPDATE, "FLIGHT_STATUS_UPDATE");
+            pnrBase(row, "09_DEPARTURE", C_PNR_DEPARTURE, "DEPARTURE");
+            pnrBase(row, "10_ARRIVAL", C_PNR_ARRIVAL, "ARRIVAL");
+            pnrBase(row, "11_TRANSFER", C_PNR_TRANSFER, "TRANSFER");
+            pnrBase(row, "12_BAGGAGE_HANDLING", C_PNR_BAGGAGE_HANDLING, "BAGGAGE_HANDLING");
+            pnrBase(row, "13_CHANGES_CANX", C_PNR_CHANGES, "CHANGES");
+            pnrBase(row, "14_WAIT_LIST_CLEARANCE", C_PNR_WAIT_LIST_CLEARANCE, "WAIT_LIST_CLEARANCE");
+            pnrBase(row, "15_NO_SHOW", C_PNR_NOSHOW, "NOSH");
+            pnrBase(row, "16_UPGRADE_DOWNGRADE", C_PNR_UPGRADE_DOWNGRADE, "UPGRADE");
+            pnrBase(row, "17_SPECIAL_SERVICE_REQUEST", C_PNR_SPECIAL_SERVICE_REQUEST, "SSR");
+            pnrBase(row, "18_FREQUENT_FLYER_CREDIT", C_PNR_FREQUENT_FLYER_CREDIT, "FREQUENT_FLYER_CREDIT");
+            pnrBase(row, "19_REMARK", C_PNR_REMARK, "REMARK");
+            pnrBase(row, "20_PNR_CLOSURE", C_PNR_CLOSURE, "PNR_CLOSURE");
 
         }
 
 
         private void writePNR()
         {
-            string flight = txtFlightPrefix.Text + txtFlightNumber.Text;
-            string arrivalTime = txtArrivalDate.Text + "T" + dtArrivalTime.Text.ToString();
-            string departureTime = txtDepartureDate.Text + "T" + dtDepartureTime.Text.ToString();
+            //writePNR(0);
 
-            writePNR(flight, arrivalTime, departureTime, 0);
+
+            foreach (DataRow row in dtPNR.Rows)
+            {
+                writePNR(row);
+            }
         }
 
 
 
-        //1_PNR Creation (Booking Creation)
-        private void pnrOpen(string filePath, string flight, string arrivalTime, string departureTime, DataRow row)
+        private void pnrBase(DataRow row, string pnrType, string[] pnrTemplate, string pnrEvent)
         {
-            string newFilename = filePath + "_01_PNR_CREATION.xml";
+            string newFilename = pnrFilePath + "_"+ pnrType + ".xml";
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("    ");
+            settings.CloseOutput = true;
+            settings.Encoding = Encoding.UTF8;
+            settings.OmitXmlDeclaration = false;
+
+            using (XmlWriter writer = XmlWriter.Create(newFilename, settings))
+            {
+                writer.WriteStartDocument();
+
+                writer.WriteStartElement("root");
+
+                writer.WriteStartElement("Passengers");
+
+                writer.WriteStartElement("Passenger");
+
+                writer.WriteStartElement("Event");
+                writer.WriteString(pnrEvent);
+                writer.WriteEndElement();
+
+
+                foreach (string column in pnrTemplate)  //loop through the columns. 
+                {
+                    writer.WriteStartElement(column);
+                    writer.WriteString(row[column].ToString());
+                    writer.WriteFullEndElement();
+
+                }
+
+
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
+
+                writer.WriteEndDocument();
+                writer.Flush();
+            }
+        }
+
+
+        private void pnrOpen(DataRow row, string pnrType, string[] pnrTemplate, string pnrEvent)
+        {
+            string newFilename = pnrFilePath + "_" + pnrType + ".xml";
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -51,13 +129,13 @@ namespace PNR_File_Maker
                 writer.WriteStartElement("root");
 
                 writer.WriteStartElement("FlightDetails");
-                writer.WriteElementString("FlightNumber", flight);
+                writer.WriteElementString("FlightNumber", nFlight);
                 writer.WriteElementString("NoofSeatofFlight", txtNoofSeatofFlight.Text);
                 writer.WriteElementString("NoofPassengers", txtNoofPassengers.Text);
                 writer.WriteElementString("OriginPort", txtOriginPort.Text);
                 writer.WriteElementString("DestinationPort", txtDestinationPort.Text);
-                writer.WriteElementString("DepartureDateTime", departureTime);
-                writer.WriteElementString("ArrivalDateTime", arrivalTime);
+                writer.WriteElementString("DepartureDateTime", nDepartureTime);
+                writer.WriteElementString("ArrivalDateTime", nArrivalTime);
                 writer.WriteElementString("AircraftType", txtAircraftType.Text);
                 writer.WriteEndElement();
 
@@ -96,10 +174,10 @@ namespace PNR_File_Maker
                 writer.WriteStartElement("Passenger");
 
                 writer.WriteStartElement("Event");
-                writer.WriteString("PNR_CREATION");
+                writer.WriteString(pnrEvent);
                 writer.WriteEndElement();
 
-                foreach (string column in colPnrOpen)  //loop through the columns. 
+                foreach (string column in pnrTemplate)  //loop through the columns. 
                 {
                     writer.WriteStartElement(column);
                     writer.WriteString(row[column].ToString());
@@ -119,199 +197,26 @@ namespace PNR_File_Maker
         }
 
 
-        //2_Ticketing (TKT)
-        private void pnrTicketing(string filePath, string flight, DataRow row)
+        private void createFolder(string folderName)
         {
-
-            string newFilename = filePath + "_02_TICKETING.xml";
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = ("    ");
-            settings.CloseOutput = true;
-            settings.Encoding = Encoding.UTF8;
-            settings.OmitXmlDeclaration = false;
-
-            using (XmlWriter writer = XmlWriter.Create(newFilename, settings))
+            try
             {
-                writer.WriteStartDocument();
-
-                writer.WriteStartElement("root");
-
-                writer.WriteStartElement("Passengers");
-
-                writer.WriteStartElement("Passenger");
-
-                writer.WriteStartElement("Event");
-                writer.WriteString("TKT");
-                writer.WriteEndElement();
-
-
-                writer.WriteStartElement("BookingReferenceId");
-                writer.WriteString(row["BookingReferenceId"].ToString());
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("DocumentNo");
-                writer.WriteString(row["DocumentNo"].ToString());
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("TicketNumber");
-                writer.WriteString("TK"+ row["BookingReferenceId"].ToString());
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("TicketIssueDate");
-                writer.WriteString(row["BookingDate"].ToString());
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("TicketingCarrier");
-                writer.WriteString(flight.Substring(0,2));
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("FareBasis");
-                writer.WriteString("FLEX");
-                writer.WriteFullEndElement();
-
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndDocument();
-                writer.Flush();
-            }
-
-        }
-
-
-        //3_ Passenger Data Updates
-        private void pnrPaxDataUpdate(string filePath, DataRow row)
-        {
-
-            string newFilename = filePath + "_03_PAX_DATA_UPDATE.xml";
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = ("    ");
-            settings.CloseOutput = true;
-            settings.Encoding = Encoding.UTF8;
-            settings.OmitXmlDeclaration = false;
-
-            using (XmlWriter writer = XmlWriter.Create(newFilename, settings))
-            {
-                writer.WriteStartDocument();
-
-                writer.WriteStartElement("root");
-
-                writer.WriteStartElement("Passengers");
-
-                writer.WriteStartElement("Passenger");
-
-                writer.WriteStartElement("Event");
-                writer.WriteString("PAX_DATA_UPDATE");
-                writer.WriteEndElement();
-
-
-                foreach (string column in colPnrPaxDataUpdate)  //loop through the columns. 
+                // Determine whether the directory exists.
+                if (Directory.Exists(folderName))
                 {
-                    writer.WriteStartElement(column);
-                    writer.WriteString(row[column].ToString());
-                    writer.WriteFullEndElement();
-
+                    Directory.Delete(folderName,true);
                 }
 
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndDocument();
-                writer.Flush();
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(folderName);
+                
+                                
             }
-
-        }
-
-
-        //4_Itinerary Updates
-        private void pnrItineraryUpdate(string filePath, string arrivalTime, string departureTime, DataRow row)
-        {
-
-            string newFilename = filePath + "_04_ITINERARY_UPDATE.xml";
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = ("    ");
-            settings.CloseOutput = true;
-            settings.Encoding = Encoding.UTF8;
-            settings.OmitXmlDeclaration = false;
-
-            using (XmlWriter writer = XmlWriter.Create(newFilename, settings))
+            catch (Exception e)
             {
-                writer.WriteStartDocument();
-
-                writer.WriteStartElement("root");
-
-                writer.WriteStartElement("Passengers");
-
-                writer.WriteStartElement("Passenger");
-
-                writer.WriteStartElement("Event");
-                writer.WriteString("ITINERARY_UPDATE");
-                writer.WriteEndElement();
-
-
-                foreach (string column in colPnrItineraryUpdate)  //loop through the columns. 
-                {
-                    writer.WriteStartElement(column);
-                    writer.WriteString(row[column].ToString());
-                    writer.WriteFullEndElement();
-
-                }
-
-                writer.WriteStartElement("NewDepartureDateTime");
-                writer.WriteString(departureTime);
-                writer.WriteFullEndElement();
-
-                writer.WriteStartElement("NewArrivalDateTime");
-                writer.WriteString(arrivalTime);
-                writer.WriteFullEndElement();
-
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndElement();
-
-                writer.WriteEndDocument();
-                writer.Flush();
+                MessageBox.Show(e.ToString());
             }
-
         }
-
-
-
-
-
-        //5_Payment (PYMT)
-        //6_Changes/Cancellations (CHNG/CANX)
-        //7_Check-In (CKIN)
-        //8_Baggage Handling (BAG)
-        //9_Boarding (BRD)
-        //10_Flight Status Updates (FLT)
-        //11_Departure (DEP)
-        //12_Arrival (ARR)
-        //13_Transfer or Connection (TRF/CONN)
-        //14_Waitlist Clearance (WLCL)
-        //15_No-Show (NOSH)
-        //16_Upgrade/Downgrade (UPG/DWG)
-        //17_Special Service Request (SSR)
-        //18_Frequent Flyer Credit (FFR)
-        //19_Remark or Note (RMK)
-        //20_PNR Closure (PNRCL)
 
 
     }

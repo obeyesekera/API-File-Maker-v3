@@ -76,6 +76,7 @@ namespace PNR_File_Maker
             txtFlightPrefix = new System.Windows.Forms.TextBox();
             txtDelayTime = new System.Windows.Forms.TextBox();
             label17 = new System.Windows.Forms.Label();
+            cbPNR = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -472,11 +473,22 @@ namespace PNR_File_Maker
             label17.TabIndex = 34;
             label17.Text = "Delay";
             // 
+            // cbPNR
+            // 
+            cbPNR.AutoSize = true;
+            cbPNR.Location = new System.Drawing.Point(988, 61);
+            cbPNR.Name = "cbPNR";
+            cbPNR.Size = new System.Drawing.Size(72, 29);
+            cbPNR.TabIndex = 35;
+            cbPNR.Text = "PNR";
+            cbPNR.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1205, 684);
+            Controls.Add(cbPNR);
             Controls.Add(label17);
             Controls.Add(txtDelayTime);
             Controls.Add(txtFlightPrefix);
@@ -583,6 +595,7 @@ namespace PNR_File_Maker
         private System.Windows.Forms.TextBox txtFlightPrefix;
         private System.Windows.Forms.TextBox txtDelayTime;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox cbPNR;
     }
 }
 

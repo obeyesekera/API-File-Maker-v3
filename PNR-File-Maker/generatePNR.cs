@@ -56,7 +56,7 @@ namespace PNR_File_Maker
             //writePNR(0);
 
 
-            foreach (DataRow row in dtPNR.Rows)
+            foreach (DataRow row in dtExcel.Rows)
             {
                 writePNR(row);
             }

@@ -72,6 +72,7 @@ namespace PNR_File_Maker
                 DialogResult dialogResult = MessageBox.Show("Do you want to save "+ fileTypes + " ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    setFlight();
                     saveAPIFile();
                 }
                 else if (dialogResult == DialogResult.No)
@@ -89,7 +90,7 @@ namespace PNR_File_Maker
         private void btnNew_Click(object sender, EventArgs e)
         {
             initializeDataset();
-            initializeDataset2();
+            //initializeDataset2();
         }
         
 
@@ -178,7 +179,7 @@ namespace PNR_File_Maker
         private void btnClearPax_Click(object sender, EventArgs e)
         {
             dataGridView.DataSource = null;
-            dtPNR = null;
+            //dtPNR = null;
 
         }
 

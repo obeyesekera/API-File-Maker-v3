@@ -86,11 +86,12 @@ namespace PNR_File_Maker
                 {
                     writer.WriteStartElement("Passenger");
 
-                    foreach (DataColumn column in row.Table.Columns)  //loop through the columns. 
+                    foreach (string column in C_API_CREATION)  //loop through the columns. 
                     {
-                        writer.WriteStartElement(column.ColumnName);
-                        writer.WriteString(row[column.ColumnName].ToString());
+                        writer.WriteStartElement(column);
+                        writer.WriteString(row[column].ToString());
                         writer.WriteFullEndElement();
+
                     }
 
                     writer.WriteEndElement();

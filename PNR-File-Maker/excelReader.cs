@@ -18,7 +18,7 @@ namespace PNR_File_Maker
         private DataTable dtExcel;
         private DataTable dtCountry;
         private DataTable dtConfig;
-        private DataTable dtPNR;
+        //private DataTable dtPNR;
         private DataTable dtSSR;
 
         private DataTable ReadExcel(string fileName)
@@ -53,6 +53,7 @@ namespace PNR_File_Maker
                         {
                             string cellVal = "";
 
+                            /* Commented on 2024-Dec-02
                             if (myTable.Columns[c - 1].ColumnName.Contains("Date"))
                             {
                                 DateTime conv = DateTime.FromOADate(excelRange.Cells[r, c].Value2);
@@ -62,6 +63,10 @@ namespace PNR_File_Maker
                             {
                                 cellVal = Convert.ToString(excelRange.Cells[r, c].Value2);
                             }
+                            */
+
+                            cellVal = Convert.ToString(excelRange.Cells[r, c].Value2); //Added on 2024-Dec-02
+
                             myNewRow[c - 1] = cellVal;
 
 
@@ -107,6 +112,8 @@ namespace PNR_File_Maker
             }
         }
 
+
+        /*
         private void initializeDataset2()
         {
             try
@@ -121,6 +128,7 @@ namespace PNR_File_Maker
                 MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        */
 
         private void loadCountries()
         {
@@ -188,6 +196,7 @@ namespace PNR_File_Maker
                         dataGridView.Visible = true;
                         dataGridView.DataSource = dtExcel;
                         updatePaxCount();
+                        
                         msg = txtNoofPassengers.Text + " records loaded.";
                         typ = "I";
                     }

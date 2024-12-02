@@ -16,7 +16,7 @@ namespace PNR_File_Maker
             setFlight();
             defineSeats();
             initializeDataset();
-            initializeDataset2();
+            //initializeDataset2();
             initialiseGrid();
 
             int totPax = Int32.Parse(txtRequiredPax.Text);
@@ -31,7 +31,7 @@ namespace PNR_File_Maker
             {
 
                 DataRow newrow = dtExcel.NewRow();
-                DataRow newrow2 = dtPNR.NewRow();
+                //DataRow newrow2 = dtPNR.NewRow();
                 DataRow country = rndCountry();
                 string alpha2 = country[1].ToString();
                 string alpha3 = country[2].ToString();
@@ -139,96 +139,105 @@ namespace PNR_File_Maker
                 string pnrClosureDate = nCloseDate;
 
                 newrow["PassengerType"] = passengerType;
-                newrow2["PassengerType"] = passengerType;
+                //newrow2["PassengerType"] = passengerType;
 
                 newrow["DocType"] = tdType;
-                newrow2["DocType"] = tdType;
+                //newrow2["DocType"] = tdType;
 
                 newrow["DocumentNo"] = tdNumber;
-                newrow2["DocumentNo"] = tdNumber;
+                //newrow2["DocumentNo"] = tdNumber;
 
                 newrow["Nationality"] = alpha3;
-                newrow2["Nationality"] = alpha3;
+                //newrow2["Nationality"] = alpha3;
                                 
                 newrow["GivenName"] = givenName;
-                newrow2["GivenName"] = givenName;
+                //newrow2["GivenName"] = givenName;
 
                 newrow["Surname"] = surName;
-                newrow2["Surname"] = surName;
+                //newrow2["Surname"] = surName;
 
                 newrow["FullName"] = fullName;
-                newrow2["FullName"] = fullName;
+                //newrow2["FullName"] = fullName;
 
                 newrow["DateOfBirth"] = dob;
-                newrow2["DateOfBirth"] = dob;
+                //newrow2["DateOfBirth"] = dob;
 
                 newrow["Gender"] = gender;
-                newrow2["Gender"] = gender;
+                //newrow2["Gender"] = gender;
                                 
                 newrow["ExpireDate"] = expiryDate;
-                newrow2["ExpireDate"] = expiryDate;
+                //newrow2["ExpireDate"] = expiryDate;
 
                 newrow["CountryOfResidence"] = alpha3;
-                newrow2["CountryOfResidence"] = alpha3;
+                //newrow2["CountryOfResidence"] = alpha3;
 
                 newrow["DocIssueCountry"] = alpha3;
-                newrow2["DocIssueCountry"] = alpha3;
+                //newrow2["DocIssueCountry"] = alpha3;
 
                 newrow["BookingReferenceId"] = bookingRef;
-                newrow2["BookingReferenceId"] = bookingRef;
-                newrow2["TicketNumber"] = ticketNo;
+                newrow["TicketNumber"] = ticketNo;
+                //newrow2["BookingReferenceId"] = bookingRef;
+                //newrow2["TicketNumber"] = ticketNo;
 
                 newrow["BookingReferenceType"] = bookingRefType;
-                newrow2["BookingReferenceType"] = bookingRefType;
+                //newrow2["BookingReferenceType"] = bookingRefType;
 
                 newrow["BookingDate"] = bookingDate;
-                newrow2["BookingDate"] = bookingDate;
-                newrow2["TicketIssueDate"] = ticketDate;
-                newrow2["TicketingCarrier"] = ticketCareer;
-                newrow2["FareBasis"] = ticketFareBasis;
+                //newrow2["BookingDate"] = bookingDate;
+                newrow["TicketIssueDate"] = ticketDate;
+                newrow["TicketingCarrier"] = ticketCareer;
+                newrow["FareBasis"] = ticketFareBasis;
+
+                //newrow2["TicketIssueDate"] = ticketDate;
+                //newrow2["TicketingCarrier"] = ticketCareer;
+                //newrow2["FareBasis"] = ticketFareBasis;
 
                 newrow["SeatNo"] = seatNumber;
-                newrow2["SeatNo"] = seatNumber;
-                newrow2["ClearedSeatNo"] = seatNumber;
-                newrow2["OldSeatNo"] = oldSeat;
-                newrow2["NewSeatNo"] = seatNumber;
+                //newrow2["SeatNo"] = seatNumber;
+                newrow["ClearedSeatNo"] = seatNumber;
+                newrow["OldSeatNo"] = oldSeat;
+                newrow["NewSeatNo"] = seatNumber;
+
+                //newrow2["ClearedSeatNo"] = seatNumber;
+                //newrow2["OldSeatNo"] = oldSeat;
+                //newrow2["NewSeatNo"] = seatNumber;
 
                 newrow["PortOfEmbark"] = portOfEmbark;
-                newrow2["PortOfEmbark"] = portOfEmbark;
-                newrow2["CheckInTime"] = checkinTime;
-                newrow2["BoardingPassIssued"] = boardingPass;
-                newrow2["BoardingTime"] = boardingTime;
-                newrow2["Gate"] = boardingGate;
-                newrow2["FlightStatus"] = flightStatus;
+                //newrow2["PortOfEmbark"] = portOfEmbark;
+                newrow["CheckInTime"] = checkinTime;
+                newrow["BoardingPassIssued"] = boardingPass;
+                newrow["BoardingTime"] = boardingTime;
+                newrow["Gate"] = boardingGate;
+                newrow["FlightStatus"] = flightStatus;
 
-                newrow2["BaggageTagNumber"] = baggageTagNumber;
-                newrow2["BaggageStatus"] = baggageStatus;
-                newrow2["BaggageDropOffLocation"] = baggageDropOffLocation;
+                newrow["BaggageTagNumber"] = baggageTagNumber;
+                newrow["BaggageStatus"] = baggageStatus;
+                newrow["BaggageDropOffLocation"] = baggageDropOffLocation;
 
-                newrow2["TransferLocation"] = transferLocation;
-                newrow2["NextFlightNumber"] = nextFlightNumber;
-                newrow2["NextFlightDepartureTime"] = nextFlightDepartureTime;
+                newrow["TransferLocation"] = transferLocation;
+                newrow["NextFlightNumber"] = nextFlightNumber;
+                newrow["NextFlightDepartureTime"] = nextFlightDepartureTime;
 
                 newrow["PortOfDisembark"] = portOfDisembark;
-                newrow2["PortOfDisembark"] = portOfDisembark;
+                //newrow2["PortOfDisembark"] = portOfDisembark;
 
                 newrow["FirstTransitPorts"] = firstTransitPorts;
 
-                newrow2["NewDepartureDateTime"] = newDepartureDateTime;
-                newrow2["NewDepartureTime"] = newDepartureDateTime;
-                newrow2["ActualDepartureTime"] = newDepartureDateTime;
+                newrow["NewDepartureDateTime"] = newDepartureDateTime;
+                newrow["NewDepartureTime"] = newDepartureDateTime;
+                newrow["ActualDepartureTime"] = newDepartureDateTime;
 
                 
                 
 
-                newrow2["NewArrivalDateTime"] = newArrivalDateTime;
-                newrow2["ActualArrivalTime"] = newArrivalDateTime;
+                newrow["NewArrivalDateTime"] = newArrivalDateTime;
+                newrow["ActualArrivalTime"] = newArrivalDateTime;
 
                 newrow["VisaNo"] = visaNumber;
-                newrow2["VisaNo"] = visaNumber;
+                //newrow2["VisaNo"] = visaNumber;
 
                 newrow["VisaExpiryDate"] = expiryDate;
-                newrow2["VisaExpiryDate"] = expiryDate;
+                //newrow2["VisaExpiryDate"] = expiryDate;
 
                 newrow["NoofCheckingluggage"] = checkinLuggage;
 
@@ -237,7 +246,7 @@ namespace PNR_File_Maker
                 newrow["PaymentCardHolder"] = fullName;
 
                 newrow["PaymentAmount"] = payAmount;
-                newrow2["PaymentAmount"] = payAmount;
+                //newrow2["PaymentAmount"] = payAmount;
                 
                 newrow["PaymentExpirationDate"] = expiryDate; 
                 
@@ -248,81 +257,81 @@ namespace PNR_File_Maker
                 newrow["PaymentTerminalID"] = payTerminalID;
 
                 newrow["PaymentCurrencyPaid"] = payCurrency;
-                newrow2["Currency"] = payCurrency;
+                newrow["Currency"] = payCurrency;
                 
                 newrow["PaymentMerchantID"] = payMerchantID;
 
                 newrow["PaymentCountry"] = alpha3;  
 
                 newrow["PaymentMethod"] = payMethod;
-                newrow2["PaymentMethod"] = payMethod;
+                //newrow2["PaymentMethod"] = payMethod;
                 
                 newrow["PaymentDatePaid"] = bookingDate;
-                newrow2["TransactionDate"] = bookingDate;
+                newrow["TransactionDate"] = bookingDate;
                 
                 newrow["ReservationContactFirstName"] = givenName;
-                newrow2["ReservationContactFirstName"] = givenName;
+                //newrow2["ReservationContactFirstName"] = givenName;
 
                 newrow["ReservationContactLastName"] = surName;
-                newrow2["ReservationContactLastName"] = surName;
+                //newrow2["ReservationContactLastName"] = surName;
 
                 newrow["ReservationContactGender"] = gender;
-                newrow2["ReservationContactGender"] = gender;
+                //newrow2["ReservationContactGender"] = gender;
 
 
                 newrow["PassengerEmail"] = paxEmailAdd;
-                newrow2["PassengerEmail"] = paxEmailAdd;
+                //newrow2["PassengerEmail"] = paxEmailAdd;
 
                 newrow["PassengerContact"] = paxContact;
-                newrow2["PassengerContact"] = paxContact;
+                //newrow2["PassengerContact"] = paxContact;
 
                 newrow["PassengerAddressLine1"] = paxAddLine1;
-                newrow2["PassengerAddressLine1"] = paxAddLine1;
+                //newrow2["PassengerAddressLine1"] = paxAddLine1;
 
                 newrow["PassengerAddressLine2"] = countryName;
-                newrow2["PassengerAddressLine2"] = countryName;
+                //newrow2["PassengerAddressLine2"] = countryName;
 
 
 
                 newrow["AgentID"] = agntID;
-                newrow2["AgentID"] = agntID;
+                //newrow2["AgentID"] = agntID;
 
                 newrow["AgentEmail"] = agentEmailAdd;
-                newrow2["AgentEmail"] = agentEmailAdd;
+                //newrow2["AgentEmail"] = agentEmailAdd;
 
                 newrow["AgentContact"] = agentContact;
-                newrow2["AgentContact"] = agentContact;
+                //newrow2["AgentContact"] = agentContact;
 
 
 
                 newrow["PassengerHotelReservationName"] = hotelResName;
-                newrow2["PassengerHotelReservationName"] = hotelResName;
+                //newrow2["PassengerHotelReservationName"] = hotelResName;
 
                 newrow["PassengerHotelReservationAddressLine1"] = hotelResAdd1;
-                newrow2["PassengerHotelReservationAddressLine1"] = hotelResAdd1;
+                //newrow2["PassengerHotelReservationAddressLine1"] = hotelResAdd1;
 
                 newrow["PassengerHotelReservationAddressLine2"] = hotelCountry;
-                newrow2["PassengerHotelReservationAddressLine2"] = hotelCountry;
+                //newrow2["PassengerHotelReservationAddressLine2"] = hotelCountry;
 
-                newrow2["ChangeType"] = changeType;
-                newrow2["NewFlightNumber"] = newFlightNumber;
-                newrow2["NewDepartureDateTime"] = newDepartureDateTime;
+                newrow["ChangeType"] = changeType;
+                newrow["NewFlightNumber"] = newFlightNumber;
+                newrow["NewDepartureDateTime"] = newDepartureDateTime;
 
-                newrow2["FlightNumber"] = nFlight;
-                newrow2["NoShowStatus"] = noShowStatus;
+                newrow["FlightNumber"] = nFlight;
+                newrow["NoShowStatus"] = noShowStatus;
 
-                newrow2["SSRCode"] = ssrCode;
-                newrow2["RequestDetails"] = ssrDetails;
+                newrow["SSRCode"] = ssrCode;
+                newrow["RequestDetails"] = ssrDetails;
 
-                newrow2["FrequentFlyerNumber"] = frequentFlyerNumber;
-                newrow2["MilesCredited"] = ffMilesCredited;
+                newrow["FrequentFlyerNumber"] = frequentFlyerNumber;
+                newrow["MilesCredited"] = ffMilesCredited;
 
-                newrow2["RemarkText"] = remarkText;
+                newrow["RemarkText"] = remarkText;
 
-                newrow2["ClosureDate"] = pnrClosureDate;
+                newrow["ClosureDate"] = pnrClosureDate;
 
                 dtExcel.Rows.Add(newrow);
-                dtPNR.Rows.Add(newrow2);
+                //dtPNR.Rows.Add(newrow2);
 
                 string asdfg = "";
             }
@@ -423,7 +432,7 @@ namespace PNR_File_Maker
                 int rowCount = dataGridView.Rows.Count;
                 dataGridView.Rows.RemoveAt(dataGridView.CurrentRow.Index);
 
-                dtPNR.Rows.RemoveAt(0);
+                //dtPNR.Rows.RemoveAt(0);
 
             }
             catch (Exception ex)

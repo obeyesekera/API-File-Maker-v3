@@ -56,17 +56,20 @@ namespace PNR_File_Maker
             }
         }
 
+        int selectedPnrCount = 0;
         
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            selectedPnrCount = 0;
+
             if (validateData())
             {
-                string fileTypes = "API file";
+                string fileTypes = "API file with " + selectedPnrCount + " PNR collections";
 
                 if (cbPNR.Checked)
                 {
-                    fileTypes = "API and PNR Files";
+                    fileTypes = "API file with " + txtNoofPassengers.Text + " PNR collections";
                 }
 
                 DialogResult dialogResult = MessageBox.Show("Do you want to save "+ fileTypes + " ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

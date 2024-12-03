@@ -196,7 +196,8 @@ namespace PNR_File_Maker
                         dataGridView.Visible = true;
                         dataGridView.DataSource = dtExcel;
                         updatePaxCount();
-                        
+                        defineSeats();
+
                         msg = txtNoofPassengers.Text + " records loaded.";
                         typ = "I";
                     }

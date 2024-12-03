@@ -119,21 +119,21 @@ namespace PNR_File_Maker
             // 
             // txtArrivalDate
             // 
-            txtArrivalDate.Location = new System.Drawing.Point(800, 206);
+            txtArrivalDate.Location = new System.Drawing.Point(800, 212);
             txtArrivalDate.Name = "txtArrivalDate";
             txtArrivalDate.Size = new System.Drawing.Size(150, 31);
             txtArrivalDate.TabIndex = 10;
             // 
             // txtDestinationPort
             // 
-            txtDestinationPort.Location = new System.Drawing.Point(800, 169);
+            txtDestinationPort.Location = new System.Drawing.Point(800, 175);
             txtDestinationPort.Name = "txtDestinationPort";
             txtDestinationPort.Size = new System.Drawing.Size(273, 31);
             txtDestinationPort.TabIndex = 9;
             // 
             // txtOriginPort
             // 
-            txtOriginPort.Location = new System.Drawing.Point(194, 169);
+            txtOriginPort.Location = new System.Drawing.Point(194, 175);
             txtOriginPort.Name = "txtOriginPort";
             txtOriginPort.Size = new System.Drawing.Size(273, 31);
             txtOriginPort.TabIndex = 6;
@@ -193,7 +193,7 @@ namespace PNR_File_Maker
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(568, 206);
+            label6.Location = new System.Drawing.Point(568, 212);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(147, 25);
             label6.TabIndex = 19;
@@ -202,7 +202,7 @@ namespace PNR_File_Maker
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(12, 206);
+            label7.Location = new System.Drawing.Point(12, 212);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(176, 25);
             label7.TabIndex = 18;
@@ -211,7 +211,7 @@ namespace PNR_File_Maker
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(568, 169);
+            label8.Location = new System.Drawing.Point(568, 175);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(139, 25);
             label8.TabIndex = 17;
@@ -220,7 +220,7 @@ namespace PNR_File_Maker
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(12, 169);
+            label9.Location = new System.Drawing.Point(12, 175);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(98, 25);
             label9.TabIndex = 16;
@@ -286,7 +286,7 @@ namespace PNR_File_Maker
             // dtArrivalTime
             // 
             dtArrivalTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            dtArrivalTime.Location = new System.Drawing.Point(956, 206);
+            dtArrivalTime.Location = new System.Drawing.Point(956, 212);
             dtArrivalTime.Name = "dtArrivalTime";
             dtArrivalTime.Size = new System.Drawing.Size(117, 31);
             dtArrivalTime.TabIndex = 11;
@@ -295,7 +295,7 @@ namespace PNR_File_Maker
             // dtDepartureTime
             // 
             dtDepartureTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            dtDepartureTime.Location = new System.Drawing.Point(350, 206);
+            dtDepartureTime.Location = new System.Drawing.Point(350, 212);
             dtDepartureTime.Name = "dtDepartureTime";
             dtDepartureTime.Size = new System.Drawing.Size(117, 31);
             dtDepartureTime.TabIndex = 8;
@@ -303,7 +303,7 @@ namespace PNR_File_Maker
             // 
             // txtDepartureDate
             // 
-            txtDepartureDate.Location = new System.Drawing.Point(194, 206);
+            txtDepartureDate.Location = new System.Drawing.Point(194, 212);
             txtDepartureDate.Name = "txtDepartureDate";
             txtDepartureDate.Size = new System.Drawing.Size(150, 31);
             txtDepartureDate.TabIndex = 7;
@@ -478,9 +478,9 @@ namespace PNR_File_Maker
             cbPNR.AutoSize = true;
             cbPNR.Location = new System.Drawing.Point(988, 61);
             cbPNR.Name = "cbPNR";
-            cbPNR.Size = new System.Drawing.Size(72, 29);
+            cbPNR.Size = new System.Drawing.Size(105, 29);
             cbPNR.TabIndex = 35;
-            cbPNR.Text = "PNR";
+            cbPNR.Text = "ALL PNR";
             cbPNR.UseVisualStyleBackColor = true;
             // 
             // frmMain

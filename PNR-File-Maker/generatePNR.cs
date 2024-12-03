@@ -59,13 +59,26 @@ namespace PNR_File_Maker
 
         private void writePNR()
         {
-            //writePNR(0);
 
-
-            foreach (DataRow row in dtExcel.Rows)
+            if (cbPNR.Checked)
             {
-                writePNR(row);
+                foreach (DataRow row in dtExcel.Rows)
+                {
+                    writePNR(row);
+                }
+
             }
+            else
+            {
+                foreach (DataRow row in dtExcel.Rows)
+                {
+                    if (row["PNR"].ToString() == "Y")
+                    {
+                        writePNR(row);
+                    }
+                }
+            }
+
         }
 
 

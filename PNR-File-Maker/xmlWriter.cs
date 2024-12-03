@@ -14,6 +14,11 @@ namespace PNR_File_Maker
             bool noBlankData = true;
             foreach (DataRow row in dtExcel.Rows)
             {
+                if (row["PNR"].ToString() == "Y")
+                {
+                    selectedPnrCount++;
+                }
+
                 int rowSize = 0;
                 foreach (DataColumn column in row.Table.Columns)  //loop through the columns. 
                 {
@@ -39,9 +44,9 @@ namespace PNR_File_Maker
                 {
                     fileSavePath = folderDialog.SelectedPath;
                     writeAPI();
-                    if (cbPNR.Checked) {
+                    //if (cbPNR.Checked) {
                         writePNR(); 
-                    }
+                    //}
 
                     MessageBox.Show("Successfully Saved", "SAVE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

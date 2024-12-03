@@ -138,6 +138,8 @@ namespace PNR_File_Maker
 
                 string pnrClosureDate = nCloseDate;
 
+                newrow["PNR"] = "N";
+
                 newrow["PassengerType"] = passengerType;
                 //newrow2["PassengerType"] = passengerType;
 

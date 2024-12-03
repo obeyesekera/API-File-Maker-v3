@@ -20,11 +20,17 @@ namespace PNR_File_Maker
            
             //DataRow row = dtPNR.Rows[rowID];
 
-            pnrFilePath = fileSavePath + "\\" + nFlight + "_" + nArrivalTime.Replace(":", "") + "_" + row["BookingReferenceId"].ToString();
+            //pnrFilePath = fileSavePath + "\\" + nFlight + "_" + nArrivalTime.Replace(":", "") + "_" + row["BookingReferenceId"].ToString();
+
+            string flightNatDocNo = nFlight + "_" + nArrivalTime.Replace(":", "") + "_" + row["Nationality"].ToString() + "_" + row["DocumentNo"].ToString();
+
+            pnrFilePath = fileSavePath + "\\" + flightNatDocNo;
 
             createFolder(pnrFilePath);
 
-            pnrFilePath = pnrFilePath + "\\" + row["BookingReferenceId"].ToString();
+            //pnrFilePath = pnrFilePath + "\\" + row["BookingReferenceId"].ToString();
+
+            pnrFilePath = pnrFilePath + "\\" + flightNatDocNo;
 
 
             pnrOpen(row, "01_PNR_CREATION", C_PNR_CREATION, "PNR_CREATION");

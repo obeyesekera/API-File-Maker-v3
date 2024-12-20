@@ -5,9 +5,11 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using ExcelApp = Microsoft.Office.Interop.Excel;
 
 
@@ -28,15 +30,20 @@ namespace PNR_File_Maker
                 Application.Exit();
             }
 
+            //set version info
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            this.Text = "API File Maker " + version;
+
             loadConfig();
+            loadAircrafts();
             initialParams();
             updatePaxCount();
             setTooltip();
             loadCountries();
             loadSSR();
-            
+
         }
-        
+
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
@@ -57,7 +64,7 @@ namespace PNR_File_Maker
         }
 
         int selectedPnrCount = 0;
-        
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -72,7 +79,7 @@ namespace PNR_File_Maker
                     fileTypes = "API file with " + txtNoofPassengers.Text + " PNR collections";
                 }
 
-                DialogResult dialogResult = MessageBox.Show("Do you want to save "+ fileTypes + " ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("Do you want to save " + fileTypes + " ?", "SAVE", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     setFlight();
@@ -88,14 +95,14 @@ namespace PNR_File_Maker
                 MessageBox.Show("Incomplete Records Found !", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        
+
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             initializeDataset();
             //initializeDataset2();
         }
-        
+
 
         private void dtDepartureTime_ValueChanged(object sender, EventArgs e)
         {
@@ -113,7 +120,7 @@ namespace PNR_File_Maker
         {
             string results = duplicateRow();
 
-            if (results.Length>0)
+            if (results.Length > 0)
             {
                 MessageBox.Show(results, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -134,7 +141,7 @@ namespace PNR_File_Maker
             updatePaxCount();
         }
 
-        
+
 
         private void btnAddPax_Click(object sender, EventArgs e)
         {
@@ -147,7 +154,7 @@ namespace PNR_File_Maker
 
         }
 
-        
+
 
         private void btnDelPax_Click(object sender, EventArgs e)
         {
@@ -159,7 +166,7 @@ namespace PNR_File_Maker
             }
         }
 
-        
+
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -171,13 +178,13 @@ namespace PNR_File_Maker
             generatePaxData();
         }
 
-        
 
-        
 
-        
 
-        
+
+
+
+
 
         private void btnClearPax_Click(object sender, EventArgs e)
         {
@@ -186,7 +193,7 @@ namespace PNR_File_Maker
 
         }
 
-        
+
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -201,9 +208,9 @@ namespace PNR_File_Maker
             calcSeats();
         }
 
-        
 
-        private void txtNoOfPremiumClassRows_TextChanged(object sender, EventArgs e)
+
+        private void txtNoOfFirstClassRows_TextChanged(object sender, EventArgs e)
         {
             calcSeats();
         }
@@ -213,14 +220,18 @@ namespace PNR_File_Maker
             calcSeats();
         }
 
+        private void txtNoOfPremiumClassRows_TextChanged(object sender, EventArgs e)
+        {
+            calcSeats();
+        }
+
         private void txtNoOfEconomyClassRows_TextChanged(object sender, EventArgs e)
         {
             calcSeats();
         }
 
-        
 
-        
+
 
         private void btnAutoGenerate_Click(object sender, EventArgs e)
         {
@@ -231,7 +242,7 @@ namespace PNR_File_Maker
             {
                 cbPNR.Checked = false;
                 disbleAll();
-                
+
                 var results = autoGenerate(fileCount);
 
                 switch (results.Item2)
@@ -255,11 +266,16 @@ namespace PNR_File_Maker
 
         }
 
-        
+
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
             MessageBox.Show("Local Country : " + localCountry);
+        }
+
+        private void cmbAircraftType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setAircraft();
         }
     }
 }

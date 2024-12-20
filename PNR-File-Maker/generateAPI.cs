@@ -47,13 +47,13 @@ namespace PNR_File_Maker
                 writer.WriteElementString("DestinationPort", txtDestinationPort.Text);
                 writer.WriteElementString("DepartureDateTime", departureTime);
                 writer.WriteElementString("ArrivalDateTime", arrivalTime);
-                writer.WriteElementString("AircraftType", txtAircraftType.Text);
+                writer.WriteElementString("AircraftType", nType);
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("SeatDetails");
 
                 writer.WriteStartElement("FirstClass");
-                writer.WriteElementString("Type", "1-2-1");
+                writer.WriteElementString("Type", getRowDigits(lblFirstClass.Text));
                 //Rows, StartingRow, EndingRow, Seats
                 writer.WriteElementString("NoofSeat", seatArray[0, 3].ToString());
                 writer.WriteElementString("NoofRows", seatArray[0, 0].ToString());
@@ -62,7 +62,7 @@ namespace PNR_File_Maker
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("BusinessClass");
-                writer.WriteElementString("Type", "2-2-2");
+                writer.WriteElementString("Type", getRowDigits(lblBusinessClass.Text));
                 //Rows, StartingRow, EndingRow, Seats
                 writer.WriteElementString("NoofSeat", seatArray[1, 3].ToString());
                 writer.WriteElementString("NoofRows", seatArray[1, 0].ToString());
@@ -70,13 +70,22 @@ namespace PNR_File_Maker
                 writer.WriteElementString("EndRowNo", seatArray[1, 2].ToString());
                 writer.WriteEndElement();
 
-                writer.WriteStartElement("EconomyClass");
-                writer.WriteElementString("Type", "3-4-3");
+                writer.WriteStartElement("PremiumClass");
+                writer.WriteElementString("Type", getRowDigits(lblPremiumClass.Text));
                 //Rows, StartingRow, EndingRow, Seats
                 writer.WriteElementString("NoofSeat", seatArray[2, 3].ToString());
                 writer.WriteElementString("NoofRows", seatArray[2, 0].ToString());
                 writer.WriteElementString("StartingRowNo", seatArray[2, 1].ToString());
                 writer.WriteElementString("EndRowNo", seatArray[2, 2].ToString());
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("EconomyClass");
+                writer.WriteElementString("Type", getRowDigits(lblEconomyClass.Text));
+                //Rows, StartingRow, EndingRow, Seats
+                writer.WriteElementString("NoofSeat", seatArray[3, 3].ToString());
+                writer.WriteElementString("NoofRows", seatArray[3, 0].ToString());
+                writer.WriteElementString("StartingRowNo", seatArray[3, 1].ToString());
+                writer.WriteElementString("EndRowNo", seatArray[3, 2].ToString());
                 writer.WriteEndElement();
                 writer.WriteEndElement();
 

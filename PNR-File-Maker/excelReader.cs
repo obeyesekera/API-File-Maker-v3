@@ -20,6 +20,7 @@ namespace PNR_File_Maker
         private DataTable dtConfig;
         //private DataTable dtPNR;
         private DataTable dtSSR;
+        private DataTable dtAircrafts;
 
         private DataTable ReadExcel(string fileName)
         {
@@ -157,6 +158,22 @@ namespace PNR_File_Maker
                 MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
+        private void loadAircrafts()
+        {
+            try
+            {
+                var GetDirectory = AppContext.BaseDirectory;
+
+                dtAircrafts = ReadExcel(GetDirectory + "\\Aircrafts.xlsx"); //read excel file
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
 
         private void loadConfig()
         {

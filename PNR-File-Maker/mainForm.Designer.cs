@@ -33,9 +33,8 @@ namespace PNR_File_Maker
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             txtFlightNumber = new System.Windows.Forms.TextBox();
             txtNoofSeatofFlight = new System.Windows.Forms.TextBox();
-            txtAircraftType = new System.Windows.Forms.TextBox();
             txtNoOfBusinessClassRows = new System.Windows.Forms.TextBox();
-            txtNoOfPremiumClassRows = new System.Windows.Forms.TextBox();
+            txtNoOfFirstClassRows = new System.Windows.Forms.TextBox();
             txtArrivalDate = new System.Windows.Forms.TextBox();
             txtDestinationPort = new System.Windows.Forms.TextBox();
             txtOriginPort = new System.Windows.Forms.TextBox();
@@ -65,10 +64,10 @@ namespace PNR_File_Maker
             toolTipCtrl = new System.Windows.Forms.ToolTip(components);
             btnAutoGenerate = new System.Windows.Forms.Button();
             label11 = new System.Windows.Forms.Label();
-            txtNoOfEconomyClassRows = new System.Windows.Forms.TextBox();
-            label12 = new System.Windows.Forms.Label();
-            label13 = new System.Windows.Forms.Label();
-            label14 = new System.Windows.Forms.Label();
+            txtNoOfPremiumClassRows = new System.Windows.Forms.TextBox();
+            lblFirstClass = new System.Windows.Forms.Label();
+            lblBusinessClass = new System.Windows.Forms.Label();
+            lblPremiumClass = new System.Windows.Forms.Label();
             label15 = new System.Windows.Forms.Label();
             txtRequiredPax = new System.Windows.Forms.TextBox();
             txtFileCount = new System.Windows.Forms.TextBox();
@@ -77,6 +76,10 @@ namespace PNR_File_Maker
             txtDelayTime = new System.Windows.Forms.TextBox();
             label17 = new System.Windows.Forms.Label();
             cbPNR = new System.Windows.Forms.CheckBox();
+            lblEconomyClass = new System.Windows.Forms.Label();
+            txtNoOfEconomyClassRows = new System.Windows.Forms.TextBox();
+            label19 = new System.Windows.Forms.Label();
+            cmbAircraftType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -94,13 +97,6 @@ namespace PNR_File_Maker
             txtNoofSeatofFlight.Size = new System.Drawing.Size(84, 31);
             txtNoofSeatofFlight.TabIndex = 2;
             // 
-            // txtAircraftType
-            // 
-            txtAircraftType.Location = new System.Drawing.Point(194, 65);
-            txtAircraftType.Name = "txtAircraftType";
-            txtAircraftType.Size = new System.Drawing.Size(368, 31);
-            txtAircraftType.TabIndex = 3;
-            // 
             // txtNoOfBusinessClassRows
             // 
             txtNoOfBusinessClassRows.Location = new System.Drawing.Point(800, 102);
@@ -109,31 +105,31 @@ namespace PNR_File_Maker
             txtNoOfBusinessClassRows.TabIndex = 4;
             txtNoOfBusinessClassRows.TextChanged += txtNoOfBusinessClassRows_TextChanged;
             // 
-            // txtNoOfPremiumClassRows
+            // txtNoOfFirstClassRows
             // 
-            txtNoOfPremiumClassRows.Location = new System.Drawing.Point(800, 65);
-            txtNoOfPremiumClassRows.Name = "txtNoOfPremiumClassRows";
-            txtNoOfPremiumClassRows.Size = new System.Drawing.Size(82, 31);
-            txtNoOfPremiumClassRows.TabIndex = 5;
-            txtNoOfPremiumClassRows.TextChanged += txtNoOfPremiumClassRows_TextChanged;
+            txtNoOfFirstClassRows.Location = new System.Drawing.Point(800, 65);
+            txtNoOfFirstClassRows.Name = "txtNoOfFirstClassRows";
+            txtNoOfFirstClassRows.Size = new System.Drawing.Size(82, 31);
+            txtNoOfFirstClassRows.TabIndex = 5;
+            txtNoOfFirstClassRows.TextChanged += txtNoOfFirstClassRows_TextChanged;
             // 
             // txtArrivalDate
             // 
-            txtArrivalDate.Location = new System.Drawing.Point(800, 212);
+            txtArrivalDate.Location = new System.Drawing.Point(800, 261);
             txtArrivalDate.Name = "txtArrivalDate";
             txtArrivalDate.Size = new System.Drawing.Size(150, 31);
             txtArrivalDate.TabIndex = 10;
             // 
             // txtDestinationPort
             // 
-            txtDestinationPort.Location = new System.Drawing.Point(800, 175);
+            txtDestinationPort.Location = new System.Drawing.Point(800, 224);
             txtDestinationPort.Name = "txtDestinationPort";
             txtDestinationPort.Size = new System.Drawing.Size(273, 31);
             txtDestinationPort.TabIndex = 9;
             // 
             // txtOriginPort
             // 
-            txtOriginPort.Location = new System.Drawing.Point(194, 175);
+            txtOriginPort.Location = new System.Drawing.Point(194, 224);
             txtOriginPort.Name = "txtOriginPort";
             txtOriginPort.Size = new System.Drawing.Size(273, 31);
             txtOriginPort.TabIndex = 6;
@@ -157,11 +153,11 @@ namespace PNR_File_Maker
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(568, 139);
+            label2.Location = new System.Drawing.Point(568, 138);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(184, 25);
+            label2.Size = new System.Drawing.Size(181, 25);
             label2.TabIndex = 11;
-            label2.Text = "No of Economy Rows";
+            label2.Text = "No of Premium Rows";
             // 
             // label3
             // 
@@ -186,14 +182,14 @@ namespace PNR_File_Maker
             label5.AutoSize = true;
             label5.Location = new System.Drawing.Point(568, 65);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(229, 25);
+            label5.Size = new System.Drawing.Size(191, 25);
             label5.TabIndex = 14;
-            label5.Text = "No Of Premium Class Rows";
+            label5.Text = "No Of First Class Rows";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(568, 212);
+            label6.Location = new System.Drawing.Point(568, 261);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(147, 25);
             label6.TabIndex = 19;
@@ -202,7 +198,7 @@ namespace PNR_File_Maker
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(12, 212);
+            label7.Location = new System.Drawing.Point(12, 261);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(176, 25);
             label7.TabIndex = 18;
@@ -211,7 +207,7 @@ namespace PNR_File_Maker
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(568, 175);
+            label8.Location = new System.Drawing.Point(568, 224);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(139, 25);
             label8.TabIndex = 17;
@@ -220,7 +216,7 @@ namespace PNR_File_Maker
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(12, 175);
+            label9.Location = new System.Drawing.Point(12, 224);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(98, 25);
             label9.TabIndex = 16;
@@ -240,7 +236,7 @@ namespace PNR_File_Maker
             dataGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            dataGridView.Location = new System.Drawing.Point(21, 272);
+            dataGridView.Location = new System.Drawing.Point(21, 301);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 62;
             dataGridView.RowTemplate.Height = 33;
@@ -286,7 +282,7 @@ namespace PNR_File_Maker
             // dtArrivalTime
             // 
             dtArrivalTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            dtArrivalTime.Location = new System.Drawing.Point(956, 212);
+            dtArrivalTime.Location = new System.Drawing.Point(956, 261);
             dtArrivalTime.Name = "dtArrivalTime";
             dtArrivalTime.Size = new System.Drawing.Size(117, 31);
             dtArrivalTime.TabIndex = 11;
@@ -295,7 +291,7 @@ namespace PNR_File_Maker
             // dtDepartureTime
             // 
             dtDepartureTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            dtDepartureTime.Location = new System.Drawing.Point(350, 212);
+            dtDepartureTime.Location = new System.Drawing.Point(350, 261);
             dtDepartureTime.Name = "dtDepartureTime";
             dtDepartureTime.Size = new System.Drawing.Size(117, 31);
             dtDepartureTime.TabIndex = 8;
@@ -303,7 +299,7 @@ namespace PNR_File_Maker
             // 
             // txtDepartureDate
             // 
-            txtDepartureDate.Location = new System.Drawing.Point(194, 212);
+            txtDepartureDate.Location = new System.Drawing.Point(194, 261);
             txtDepartureDate.Name = "txtDepartureDate";
             txtDepartureDate.Size = new System.Drawing.Size(150, 31);
             txtDepartureDate.TabIndex = 7;
@@ -311,7 +307,7 @@ namespace PNR_File_Maker
             // btnCopyPax
             // 
             btnCopyPax.Font = new System.Drawing.Font("Wingdings", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnCopyPax.Location = new System.Drawing.Point(1078, 419);
+            btnCopyPax.Location = new System.Drawing.Point(1078, 448);
             btnCopyPax.Name = "btnCopyPax";
             btnCopyPax.Size = new System.Drawing.Size(40, 40);
             btnCopyPax.TabIndex = 17;
@@ -322,7 +318,7 @@ namespace PNR_File_Maker
             // btnAddPax
             // 
             btnAddPax.Font = new System.Drawing.Font("Wingdings", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnAddPax.Location = new System.Drawing.Point(1078, 373);
+            btnAddPax.Location = new System.Drawing.Point(1078, 402);
             btnAddPax.Name = "btnAddPax";
             btnAddPax.Size = new System.Drawing.Size(40, 40);
             btnAddPax.TabIndex = 16;
@@ -333,7 +329,7 @@ namespace PNR_File_Maker
             // btnDelPax
             // 
             btnDelPax.Font = new System.Drawing.Font("Wingdings", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnDelPax.Location = new System.Drawing.Point(1078, 465);
+            btnDelPax.Location = new System.Drawing.Point(1078, 494);
             btnDelPax.Name = "btnDelPax";
             btnDelPax.Size = new System.Drawing.Size(40, 40);
             btnDelPax.TabIndex = 18;
@@ -344,7 +340,7 @@ namespace PNR_File_Maker
             // btnRndPax
             // 
             btnRndPax.Font = new System.Drawing.Font("Wingdings", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnRndPax.Location = new System.Drawing.Point(1078, 511);
+            btnRndPax.Location = new System.Drawing.Point(1078, 540);
             btnRndPax.Name = "btnRndPax";
             btnRndPax.Size = new System.Drawing.Size(40, 40);
             btnRndPax.TabIndex = 20;
@@ -355,7 +351,7 @@ namespace PNR_File_Maker
             // btnClearPax
             // 
             btnClearPax.Font = new System.Drawing.Font("Wingdings", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnClearPax.Location = new System.Drawing.Point(1078, 557);
+            btnClearPax.Location = new System.Drawing.Point(1078, 586);
             btnClearPax.Name = "btnClearPax";
             btnClearPax.Size = new System.Drawing.Size(40, 40);
             btnClearPax.TabIndex = 21;
@@ -366,7 +362,7 @@ namespace PNR_File_Maker
             // btnAutoGenerate
             // 
             btnAutoGenerate.Font = new System.Drawing.Font("Wingdings", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnAutoGenerate.Location = new System.Drawing.Point(1117, 220);
+            btnAutoGenerate.Location = new System.Drawing.Point(1117, 249);
             btnAutoGenerate.Name = "btnAutoGenerate";
             btnAutoGenerate.Size = new System.Drawing.Size(60, 60);
             btnAutoGenerate.TabIndex = 22;
@@ -383,40 +379,40 @@ namespace PNR_File_Maker
             label11.TabIndex = 23;
             label11.Text = "Required Pax Count";
             // 
-            // txtNoOfEconomyClassRows
+            // txtNoOfPremiumClassRows
             // 
-            txtNoOfEconomyClassRows.Location = new System.Drawing.Point(800, 139);
-            txtNoOfEconomyClassRows.Name = "txtNoOfEconomyClassRows";
-            txtNoOfEconomyClassRows.Size = new System.Drawing.Size(82, 31);
-            txtNoOfEconomyClassRows.TabIndex = 24;
-            txtNoOfEconomyClassRows.TextChanged += txtNoOfEconomyClassRows_TextChanged;
+            txtNoOfPremiumClassRows.Location = new System.Drawing.Point(800, 138);
+            txtNoOfPremiumClassRows.Name = "txtNoOfPremiumClassRows";
+            txtNoOfPremiumClassRows.Size = new System.Drawing.Size(82, 31);
+            txtNoOfPremiumClassRows.TabIndex = 24;
+            txtNoOfPremiumClassRows.TextChanged += txtNoOfPremiumClassRows_TextChanged;
             // 
-            // label12
+            // lblFirstClass
             // 
-            label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(894, 68);
-            label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(56, 25);
-            label12.TabIndex = 25;
-            label12.Text = "1-2-1";
+            lblFirstClass.AutoSize = true;
+            lblFirstClass.Location = new System.Drawing.Point(894, 68);
+            lblFirstClass.Name = "lblFirstClass";
+            lblFirstClass.Size = new System.Drawing.Size(56, 25);
+            lblFirstClass.TabIndex = 25;
+            lblFirstClass.Text = "1-1-1";
             // 
-            // label13
+            // lblBusinessClass
             // 
-            label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(894, 102);
-            label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(56, 25);
-            label13.TabIndex = 26;
-            label13.Text = "2-2-2";
+            lblBusinessClass.AutoSize = true;
+            lblBusinessClass.Location = new System.Drawing.Point(894, 102);
+            lblBusinessClass.Name = "lblBusinessClass";
+            lblBusinessClass.Size = new System.Drawing.Size(56, 25);
+            lblBusinessClass.TabIndex = 26;
+            lblBusinessClass.Text = "2-2-2";
             // 
-            // label14
+            // lblPremiumClass
             // 
-            label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(894, 139);
-            label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(56, 25);
-            label14.TabIndex = 27;
-            label14.Text = "3-4-3";
+            lblPremiumClass.AutoSize = true;
+            lblPremiumClass.Location = new System.Drawing.Point(894, 138);
+            lblPremiumClass.Name = "lblPremiumClass";
+            lblPremiumClass.Size = new System.Drawing.Size(56, 25);
+            lblPremiumClass.TabIndex = 27;
+            lblPremiumClass.Text = "2-3-2";
             // 
             // label15
             // 
@@ -483,11 +479,50 @@ namespace PNR_File_Maker
             cbPNR.Text = "ALL PNR";
             cbPNR.UseVisualStyleBackColor = true;
             // 
+            // lblEconomyClass
+            // 
+            lblEconomyClass.AutoSize = true;
+            lblEconomyClass.Location = new System.Drawing.Point(894, 175);
+            lblEconomyClass.Name = "lblEconomyClass";
+            lblEconomyClass.Size = new System.Drawing.Size(56, 25);
+            lblEconomyClass.TabIndex = 38;
+            lblEconomyClass.Text = "3-4-3";
+            // 
+            // txtNoOfEconomyClassRows
+            // 
+            txtNoOfEconomyClassRows.Location = new System.Drawing.Point(800, 175);
+            txtNoOfEconomyClassRows.Name = "txtNoOfEconomyClassRows";
+            txtNoOfEconomyClassRows.Size = new System.Drawing.Size(82, 31);
+            txtNoOfEconomyClassRows.TabIndex = 37;
+            txtNoOfEconomyClassRows.TextChanged += txtNoOfEconomyClassRows_TextChanged;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new System.Drawing.Point(568, 175);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(184, 25);
+            label19.TabIndex = 36;
+            label19.Text = "No of Economy Rows";
+            // 
+            // cmbAircraftType
+            // 
+            cmbAircraftType.FormattingEnabled = true;
+            cmbAircraftType.Location = new System.Drawing.Point(194, 65);
+            cmbAircraftType.Name = "cmbAircraftType";
+            cmbAircraftType.Size = new System.Drawing.Size(368, 33);
+            cmbAircraftType.TabIndex = 39;
+            cmbAircraftType.SelectedIndexChanged += cmbAircraftType_SelectedIndexChanged;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1205, 684);
+            ClientSize = new System.Drawing.Size(1205, 711);
+            Controls.Add(cmbAircraftType);
+            Controls.Add(lblEconomyClass);
+            Controls.Add(txtNoOfEconomyClassRows);
+            Controls.Add(label19);
             Controls.Add(cbPNR);
             Controls.Add(label17);
             Controls.Add(txtDelayTime);
@@ -496,10 +531,10 @@ namespace PNR_File_Maker
             Controls.Add(txtFileCount);
             Controls.Add(txtRequiredPax);
             Controls.Add(label15);
-            Controls.Add(label14);
-            Controls.Add(label13);
-            Controls.Add(label12);
-            Controls.Add(txtNoOfEconomyClassRows);
+            Controls.Add(lblPremiumClass);
+            Controls.Add(lblBusinessClass);
+            Controls.Add(lblFirstClass);
+            Controls.Add(txtNoOfPremiumClassRows);
             Controls.Add(label11);
             Controls.Add(btnAutoGenerate);
             Controls.Add(btnClearPax);
@@ -528,9 +563,8 @@ namespace PNR_File_Maker
             Controls.Add(txtDestinationPort);
             Controls.Add(txtOriginPort);
             Controls.Add(txtNoofPassengers);
-            Controls.Add(txtNoOfPremiumClassRows);
+            Controls.Add(txtNoOfFirstClassRows);
             Controls.Add(txtNoOfBusinessClassRows);
-            Controls.Add(txtAircraftType);
             Controls.Add(txtNoofSeatofFlight);
             Controls.Add(txtFlightNumber);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -552,9 +586,8 @@ namespace PNR_File_Maker
 
         private System.Windows.Forms.TextBox txtFlightNumber;
         private System.Windows.Forms.TextBox txtNoofSeatofFlight;
-        private System.Windows.Forms.TextBox txtAircraftType;
         private System.Windows.Forms.TextBox txtNoOfBusinessClassRows;
-        private System.Windows.Forms.TextBox txtNoOfPremiumClassRows;
+        private System.Windows.Forms.TextBox txtNoOfFirstClassRows;
         private System.Windows.Forms.TextBox txtArrivalDate;
         private System.Windows.Forms.TextBox txtDestinationPort;
         private System.Windows.Forms.TextBox txtOriginPort;
@@ -584,10 +617,10 @@ namespace PNR_File_Maker
         private System.Windows.Forms.ToolTip toolTipCtrl;
         private System.Windows.Forms.Button btnAutoGenerate;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtNoOfEconomyClassRows;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtNoOfPremiumClassRows;
+        private System.Windows.Forms.Label lblFirstClass;
+        private System.Windows.Forms.Label lblBusinessClass;
+        private System.Windows.Forms.Label lblPremiumClass;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtRequiredPax;
         private System.Windows.Forms.TextBox txtFileCount;
@@ -596,6 +629,10 @@ namespace PNR_File_Maker
         private System.Windows.Forms.TextBox txtDelayTime;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox cbPNR;
+        private System.Windows.Forms.Label lblEconomyClass;
+        private System.Windows.Forms.TextBox txtNoOfEconomyClassRows;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox cmbAircraftType;
     }
 }
 

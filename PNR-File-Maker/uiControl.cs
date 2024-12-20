@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace PNR_File_Maker
@@ -16,7 +17,7 @@ namespace PNR_File_Maker
             txtFlightNumber.Text = configRow[1].ToString(); //"1000001";
             txtDelayTime.Text = configRow[2].ToString(); //"5";
             //txtNoofSeatofFlight.Text = "332";
-            txtAircraftType.Text = configRow[3].ToString(); //"Boeing 777-300ER(77W) Three Class";
+            //txtAircraftType.Text = configRow[3].ToString(); //"Boeing 777-300ER(77W) Three Class";
             txtNoOfBusinessClassRows.Text = configRow[5].ToString(); //"4";
             txtNoOfPremiumClassRows.Text = configRow[4].ToString(); //"2";
             txtNoOfEconomyClassRows.Text = configRow[6].ToString(); //"30";
@@ -43,6 +44,18 @@ namespace PNR_File_Maker
             txtNoofSeatofFlight.ReadOnly = true;
             cbPNR.Checked = false;
 
+            cmbAircraftType.DataSource = dtAircrafts;
+            cmbAircraftType.DisplayMember = "Aircraft";
+            cmbAircraftType.ValueMember = "Aircraft";
+            cmbAircraftType.SelectedIndex = 0;
+
+            //DataSet myDataSet = new DataSet();
+            //myDataSet.Tables.Add(dtAircrafts);
+            //cmbAircraftType.DataSource = myDataSet.Tables[0].DefaultView;
+            //cmbAircraftType.DisplayMember = "Aircraft";
+            //cmbAircraftType.BindingContext = this.BindingContext;
+
+
         }
 
         private void updateConfig()
@@ -59,7 +72,8 @@ namespace PNR_File_Maker
         private void disbleAll()
         {
             dataGridView.Enabled = false;
-            txtAircraftType.Enabled = false;
+            //txtAircraftType.Enabled = false;
+            cmbAircraftType.Enabled=false;
             txtArrivalDate.Enabled = false;
             txtDelayTime.Enabled = false;
             txtDepartureDate.Enabled = false;
@@ -67,6 +81,7 @@ namespace PNR_File_Maker
             txtFileCount.Enabled = false;
             txtFlightNumber.Enabled = false;
             txtFlightPrefix.Enabled = false;
+            txtNoOfFirstClassRows.Enabled = false;
             txtNoOfBusinessClassRows.Enabled = false;
             txtNoOfEconomyClassRows.Enabled = false;
             txtNoOfPremiumClassRows.Enabled = false;
@@ -90,7 +105,8 @@ namespace PNR_File_Maker
         private void enableAll()
         {
             dataGridView.Enabled = true;
-            txtAircraftType.Enabled = true;
+            //txtAircraftType.Enabled = true;
+            cmbAircraftType.Enabled=true;
             txtArrivalDate.Enabled = true;
             txtDelayTime.Enabled = true;
             txtDepartureDate.Enabled = true;
@@ -98,6 +114,7 @@ namespace PNR_File_Maker
             txtFileCount.Enabled = true;
             txtFlightNumber.Enabled = true;
             txtFlightPrefix.Enabled = true;
+            txtNoOfFirstClassRows.Enabled = true;
             txtNoOfBusinessClassRows.Enabled = true;
             txtNoOfEconomyClassRows.Enabled = true;
             txtNoOfPremiumClassRows.Enabled = true;

@@ -8,8 +8,8 @@
     <StartupObject>PNR_File_Maker.Program</StartupObject>
     <ApplicationIcon>flight.ico</ApplicationIcon>
     <Version>$(VersionPrefix)</Version>
-    <AssemblyVersion>1.0.6</AssemblyVersion>
-    <FileVersion>1.0.6</FileVersion>
+    <AssemblyVersion>1.0.7</AssemblyVersion>
+    <FileVersion>1.0.7</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
